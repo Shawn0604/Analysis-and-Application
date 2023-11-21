@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+    <style>
+        /* 样式用于可伸缩的空白对话框 */
+        .resizable-dialog {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            resize: both;
+            overflow: auto;
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file">
+        <button type="button" onclick="uploadFile()">上傳 CSV 檔案</button>
+    </form>
+
+    <div id="sentimentResults" class="resizable-dialog">
+        <!-- 这里可以放入对话框的内容 -->
+    </div>
+
+    <script>
+        function uploadFile() {
+            var input = document.getElementById('fileInput');
+            var file = input.files[0];
+    
+            var formData = new FormData();
+            formData.append('file', file);
+    
+            // 使用 Fetch API 發送 POST 請求
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data.result);
+                // 操作成功，觸發圖片更新
+                if (data.success) {
+                    updateCharts();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // 等待圖片生成完成後載入
+    // 等待圖片生成完成後載入
+    document.addEventListener('DOMContentLoaded', function() {
+        // 使用 Fetch API 檢查是否有新的圖片
+        function checkForNewImages() {
+            fetch('/check_for_new_images', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    // data 中包含新的圖片信息，如果有的話
+                    if (data.new_images) {
+                        // 更新頁面上的圖片
+                        updateImages(data.new_images);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // 更新頁面上的圖片
+        // 更新頁面上的圖片
+function updateImages(newImages) {
+    var sentimentChartDiv = document.getElementById('sentimentChart');
+    // 清空之前的圖片
+    sentimentChartDiv.innerHTML = '';
+
+    // 遍歷新的圖片信息，並將它們添加到頁面中
+    newImages.forEach(function(image) {
+        // 檢查圖片是否存在
+        var imgPath = "/static/" + image;
+        fetch(imgPath)
+            .then(response => {
+                if (response.ok) {
+                    // 如果圖片存在，則創建 img 元素
+                    var imgElement = document.createElement('img');
+                    imgElement.src = imgPath;
+                    imgElement.alt = "Graph";
+                    sentimentChartDiv.appendChild(imgElement);
+                }
+            })
+            .catch(error => console.error('Error checking image:', error));
+    });
+}
+
+        // 每隔一段時間檢查是否有新的圖片
+        setInterval(checkForNewImages, 30000);  // 這裡的時間可以根據實際情況進行調整
+    });
+    
+        function displayResults(result) {
+            var resultsDiv = document.getElementById('sentimentResults');
+            resultsDiv.innerHTML = ''; // 清空內容
+    
+            // 遍歷 JSON 中的每個結果，並添加到 div 元素中
+            result.forEach(function(item) {
+                var resultItem = document.createElement('div');
+                resultItem.innerHTML = `
+                    <p><strong>Course:</strong> ${item.course}</p>
+                    <p><strong>Field:</strong> ${item.field}</p>
+                    <p><strong>Learning Method:</strong> ${item.learning_method}</p>
+                    <p><strong>Review:</strong> ${item.review}</p>
+                    <p><strong>Score:</strong> ${item.score}</p>
+                    <p><strong>Sentiment:</strong> ${item.sentiment}</p>
+                    <hr>
+                `;
+                resultsDiv.appendChild(resultItem);
+            });
+        }
+    
+        function updateCharts() {
+    // 重新載入或更新圖片的邏輯
+    // 這裡可以使用相應的 JavaScript 代碼，例如重新設置圖片的 src 屬性
+    // 或使用 Ajax 請求重新加載圖片
+    checkForNewImages(); // 這裡改為直接檢查新圖片，而不是重新載入整個頁面
+}
+    </script>
+    
+    
+
+
+    <!-- 新的div元素用于显示图表 -->
+    <div id="sentimentChart">
+        <!-- 图表1 -->
+        {% if url_for('static', filename='graph1.png') %}
+            <img src="{{ url_for('static', filename='graph1.png') }}" alt="Graph 1">
+        {% endif %}
+        <!-- 图表2 -->
+        {% if url_for('static', filename='graph2.png') %}
+            <img src="{{ url_for('static', filename='graph2.png') }}" alt="Graph 2">
+        {% endif %}
+        <!-- 图表3 -->
+        {% if url_for('static', filename='graph3.png') %}
+            <img src="{{ url_for('static', filename='graph3.png') }}" alt="Graph 3">
+        {% endif %}
+        <!-- 图表4 -->
+        {% if url_for('static', filename='graph4.png') %}
+            <img src="{{ url_for('static', filename='graph4.png') }}" alt="Graph 4">
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+
+
+
+
