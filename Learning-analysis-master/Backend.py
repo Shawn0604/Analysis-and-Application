@@ -49,6 +49,7 @@ def upload_file():
 
         df = pd.read_csv(file_path)
 
+
         dataresult = []
         for i in range(len(df.iloc[:, 0])):
             subdic = {
@@ -299,13 +300,13 @@ def graph(json_file_path):
     data_for_graph["color"] = data_for_graph["Field"].map(category_colors)
     # mean score 圖
     plt.figure(figsize=(10, 6))
-# 將這行代碼的 palette 改為 hue，同時添加 legend=False
-    sns.barplot(data=data_for_graph, x="Field", y="Mean Score", hue="color", legend=False)
+    # 將這行代碼的 palette 改為 hue，同時添加 legend=False
+    sns.barplot(data=data_for_graph, x="Field", y="Mean Score", palette=list(data_for_graph["color"]), legend=False)
     plt.title("Mean Score by Field")
     plt.savefig('static/graph2.png')  # Save the figure as an image
     # mean sentiment 圖
     plt.figure(figsize=(10, 6))
-    sns.barplot(data=data_for_graph, x="Field", y="Mean Sentiment", hue="color", legend=False)
+    sns.barplot(data=data_for_graph, x="Field", y="Mean Sentiment", palette=list(data_for_graph["color"]), legend=False)
     plt.title("Mean Sentiment by Field")
     plt.savefig('static/graph3.png')  # Save the figure as an image
 
@@ -339,7 +340,7 @@ def graph(json_file_path):
     plt.title('Learning Method with Score (positive sentiment only)')
     plt.gca().invert_yaxis()  # Invert the y-axis
     plt.savefig('static/graph4.png')  # Save the figure as an image
-
+    
 # 調用 graph 函數，傳入 JSON 文件的路徑
 # graph("result.json")
 
