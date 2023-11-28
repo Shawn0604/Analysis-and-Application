@@ -19,42 +19,63 @@
     <h1>Sentiment Analysis</h1>
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" id="fileInput" name="file">
-        <button type="button" onclick="uploadFile()">上傳 CSV 檔案</button>
+        <button type="button" onclick="uploadFile()">上傳檔案並進行分析</button>
+        <button type="button" onclick="generateCharts()">生成分析圖表</button>
+        <button type="button" onclick="displayResults()">顯示學習歷程分析</button>
+        <button type="button" onclick="displayResultsAndRecommendation()">分析與建議</button>
     </form>
 
-    <div id="sentimentResults" class="resizable-dialog">
-        <!-- 这里可以放入对话框的内容 -->
+    <div id="displayResults" class="resizable-dialog"></div>
+    <div id="recommendationResults" class="resizable-dialog"></div>
+
+    <div id="sentimentChart">
+        <!-- 图表1 -->
+        {% if url_for('static', filename='graph1.png') %}
+            <img id="graph1" src="{{ url_for('static', filename='graph1.png') }}" alt="Graph 1">
+        {% endif %}
+        <!-- 图表2 -->
+        {% if url_for('static', filename='graph2.png') %}
+            <img id="graph2" src="{{ url_for('static', filename='graph2.png') }}" alt="Graph 2">
+        {% endif %}
+        <!-- 图表3 -->
+        {% if url_for('static', filename='graph3.png') %}
+            <img id="graph3" src="{{ url_for('static', filename='graph3.png') }}" alt="Graph 3">
+        {% endif %}
+        <!-- 图表4 -->
+        {% if url_for('static', filename='graph4.png') %}
+            <img id="graph4" src="{{ url_for('static', filename='graph4.png') }}" alt="Graph 4">
+        {% endif %}
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkForMissingImages();
+        });
+
         function uploadFile() {
             var input = document.getElementById('fileInput');
             var file = input.files[0];
-    
+
             var formData = new FormData();
             formData.append('file', file);
-    
-            // 使用 Fetch API 發送 POST 請求
+
             fetch('/upload', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                displayResults(data.result);
-                // 操作成功，觸發圖片更新
+                window.result = data.result;
+                console.log(window.result);
                 if (data.success) {
                     updateCharts();
+                    checkForMissingImages();
                 }
             })
             .catch(error => console.error('Error:', error));
         }
 
-        // 等待圖片生成完成後載入
-    // 等待圖片生成完成後載入
-    document.addEventListener('DOMContentLoaded', function() {
-        // 使用 Fetch API 檢查是否有新的圖片
-        function checkForNewImages() {
+        function generateCharts() {
             fetch('/check_for_new_images', { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
@@ -67,41 +88,87 @@
                 .catch(error => console.error('Error:', error));
         }
 
-        // 更新頁面上的圖片
-        // 更新頁面上的圖片
-function updateImages(newImages) {
-    var sentimentChartDiv = document.getElementById('sentimentChart');
-    // 清空之前的圖片
-    sentimentChartDiv.innerHTML = '';
+        function checkForMissingImages() {
+            // Check if images are missing and hide them
+            checkAndHideImage('graph1');
+            checkAndHideImage('graph2');
+            checkAndHideImage('graph3');
+            checkAndHideImage('graph4');
 
-    // 遍歷新的圖片信息，並將它們添加到頁面中
-    newImages.forEach(function(image) {
-        // 檢查圖片是否存在
-        var imgPath = "/static/" + image;
-        fetch(imgPath)
-            .then(response => {
-                if (response.ok) {
-                    // 如果圖片存在，則創建 img 元素
-                    var imgElement = document.createElement('img');
-                    imgElement.src = imgPath;
-                    imgElement.alt = "Graph";
-                    sentimentChartDiv.appendChild(imgElement);
-                }
+            // If all images are loaded, stop checking for new images
+            if (areAllImagesLoaded()) {
+                clearInterval(checkForNewImagesInterval);
+            }
+        }
+
+        function checkAndHideImage(imageId) {
+            var imageElement = document.getElementById(imageId);
+            if (imageElement && (!imageElement.complete || typeof imageElement.naturalWidth === "undefined" || imageElement.naturalWidth === 0)) {
+                imageElement.style.display = 'none';
+            }
+        }
+
+        function areAllImagesLoaded() {
+            var graph1 = document.getElementById('graph1');
+            var graph2 = document.getElementById('graph2');
+            var graph3 = document.getElementById('graph3');
+            var graph4 = document.getElementById('graph4');
+
+            return graph1.complete && graph2.complete && graph3.complete && graph4.complete;
+        }
+
+        function updateImages(newImages) {
+            var sentimentChartDiv = document.getElementById('sentimentChart');
+            sentimentChartDiv.innerHTML = '';
+
+            newImages.forEach(function(image) {
+                var imgPath = "/static/" + image;
+                fetch(imgPath)
+                    .then(response => {
+                        if (response.ok) {
+                            var imgElement = document.createElement('img');
+                            imgElement.src = imgPath;
+                            imgElement.alt = "Graph";
+                            sentimentChartDiv.appendChild(imgElement);
+                        }
+                    })
+                    .catch(error => console.error('Error checking image:', error));
+            });
+
+            // If all images are loaded, stop checking for new images
+            if (areAllImagesLoaded()) {
+                clearInterval(checkForNewImagesInterval);
+            }
+        }
+
+        function getRecommendation() {
+            var jsondata = JSON.stringify(window.result);
+
+            fetch('/recommendation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: jsondata,
             })
-            .catch(error => console.error('Error checking image:', error));
-    });
-}
+            .then(response => response.json())
+            .then(result => {
+                var recommendation = result.recommendation;
+                var recommendationDiv = document.getElementById('recommendationResults');
+                recommendationDiv.innerHTML = `<p><strong>Recommendation:</strong> ${recommendation}</p>`;
+            })
+            .catch(error => console.error('Error:', error));
+        }
 
-        // 每隔一段時間檢查是否有新的圖片
-        setInterval(checkForNewImages, 30000);  // 這裡的時間可以根據實際情況進行調整
-    });
-    
-        function displayResults(result) {
+        function updateCharts() {
+            // Remove the call to checkForNewImages
+        }
+
+        function displayResults3(results) {
             var resultsDiv = document.getElementById('sentimentResults');
-            resultsDiv.innerHTML = ''; // 清空內容
-    
-            // 遍歷 JSON 中的每個結果，並添加到 div 元素中
-            result.forEach(function(item) {
+            resultsDiv.innerHTML = '';
+
+            results.forEach(function(item) {
                 var resultItem = document.createElement('div');
                 resultItem.innerHTML = `
                     <p><strong>Course:</strong> ${item.course}</p>
@@ -115,39 +182,45 @@ function updateImages(newImages) {
                 resultsDiv.appendChild(resultItem);
             });
         }
-    
-        function updateCharts() {
-    // 重新載入或更新圖片的邏輯
-    // 這裡可以使用相應的 JavaScript 代碼，例如重新設置圖片的 src 屬性
-    // 或使用 Ajax 請求重新加載圖片
-    checkForNewImages(); // 這裡改為直接檢查新圖片，而不是重新載入整個頁面
-}
+
+        function displayResults2(results) {
+            var resultsDiv = document.getElementById('displayResults');
+            resultsDiv.innerHTML = '';
+
+            results.forEach(function(item) {
+                var resultItem = document.createElement('div');
+                resultItem.innerHTML = `
+                    <p><strong>Course:</strong> ${item.course}</p>
+                    <p><strong>Field:</strong> ${item.field}</p>
+                    <p><strong>Learning Method:</strong> ${item.learning_method}</p>
+                    <p><strong>Review:</strong> ${item.review}</p>
+                    <p><strong>Score:</strong> ${item.score}</p>
+                    <p><strong>Sentiment:</strong> ${item.sentiment}</p>
+                    <hr>
+                `;
+                resultsDiv.appendChild(resultItem);
+            });
+        }
+
+        function displayResults() {
+            displayResults2(window.result);
+        }
+
+        function displayResultsAndRecommendation() {
+            getRecommendation();
+        }
     </script>
     
-    
-
-
-    <!-- 新的div元素用于显示图表 -->
-    <div id="sentimentChart">
-        <!-- 图表1 -->
-        {% if url_for('static', filename='graph1.png') %}
-            <img src="{{ url_for('static', filename='graph1.png') }}" alt="Graph 1">
-        {% endif %}
-        <!-- 图表2 -->
-        {% if url_for('static', filename='graph2.png') %}
-            <img src="{{ url_for('static', filename='graph2.png') }}" alt="Graph 2">
-        {% endif %}
-        <!-- 图表3 -->
-        {% if url_for('static', filename='graph3.png') %}
-            <img src="{{ url_for('static', filename='graph3.png') }}" alt="Graph 3">
-        {% endif %}
-        <!-- 图表4 -->
-        {% if url_for('static', filename='graph4.png') %}
-            <img src="{{ url_for('static', filename='graph4.png') }}" alt="Graph 4">
-        {% endif %}
-    </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 

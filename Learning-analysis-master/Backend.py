@@ -348,6 +348,91 @@ def graph(json_file_path):
 def internal_server_error(e):
     return jsonify(error=str(e)), 500
 
+def recom(jsondata):
+    import pandas as pd
+    import json
+    # JSON data
+    jsondata = pd.DataFrame(jsondata)
+
+    df1=jsondata.copy()
+    df2=jsondata.copy()
+
+    #類別平均成績與情緒分析
+    df1 = jsondata
+    meanscore_cate = df1.groupby("field")["score"].mean().round(1)
+    df1["sentiment"] = pd.Categorical(df1["sentiment"], categories=["negative", "neutral", "mixed", "positive"]).codes
+    meansentiment = df1.groupby("field")["sentiment"].mean().round(1)
+
+    # category
+    cat_data = df1.groupby("field")
+    cat = []
+    for i in cat_data:
+        cat.append(i[0])
+
+    data_for_graph = pd.DataFrame({"Field": cat, "Mean Score": meanscore_cate.values, "Mean Sentiment": meansentiment.values})
+
+    # 最後建議的學科領域類別
+    max_score_value = data_for_graph['Mean Score'].max()
+    max_sentiment_score_value = data_for_graph["Mean Sentiment"].max()
+    max_score_fields = data_for_graph.loc[data_for_graph['Mean Score'] == max_score_value, 'Field'].tolist()
+    max_sentiment_Score_field = data_for_graph.loc[
+        data_for_graph["Mean Sentiment"] == max_sentiment_score_value, "Field"].tolist()
+
+    # 正向情緒的學習方式成績圖
+    # 處理na的資料
+    method_data = df2[df2["learning_method"] != "N/A"]
+    sentiment_is_positive = method_data[method_data["sentiment"] == "positive"].drop(["review"], axis=1)
+
+    # 將一樣的學習方式分數取平均(可能之後整理出來的資料不會有機會重複)
+    sentiment_for_method = sentiment_is_positive.groupby("learning_method")["score"].mean()
+
+    # method
+    method_data = sentiment_is_positive.groupby("learning_method")
+    method = []
+    for i in method_data:
+        method.append(i[0])
+
+    # method data 整理
+    method_for_graph = pd.DataFrame({"learning_method": method, "mean_score": sentiment_for_method.values})
+
+    # 按照分数高低排序
+    method_for_graph = method_for_graph.sort_values(by='mean_score', ascending=False)
+
+    # Find the learning method with the highest score
+    max_score_method = method_for_graph["mean_score"].max()
+    max_score_method = method_for_graph.loc[method_for_graph['mean_score'] == max_score_method, 'learning_method'].tolist()
+
+    # 學習建議輸出
+    if len(max_score_fields) == 1 and len(max_sentiment_Score_field) == 1:
+        if max_score_fields[0] == max_sentiment_Score_field[0]:
+            result = (f'透過您上傳的資料我們發現您對於「{max_sentiment_Score_field[0]}」領域的情感表現最為正向，'
+                      f'而就整體平均分數而言您在「{max_score_fields[0]}」領域表現得最好，您或許對於「{max_sentiment_Score_field[0]}」領域具有強大的興趣與學習優勢，'
+                      f'因此您可以考慮以「{max_score_fields[0]}」領域方向作為學習發展的目標!\n')
+            if len(max_score_method) == 1:
+                result = result + f'''根據資料顯示，您最佳的學習方式為「{max_score_method[0]}」。或許未來在學習不同科目時，您可以選擇此種學習方式提升學習效果。'''
+                return result
+            else:
+                inputmethod = ""
+                for i in max_score_fields:
+                    inputmethod += f'{i} '
+                result = result + f'''根據資料顯示，您最佳的學習方式為{inputmethod}。或許未來在學習不同科目時，您可以選擇這些學習方式提升學習效果。'''
+                return result
+        else:
+            result = (f'透過您上傳的資料我們發現您對於「{max_sentiment_Score_field[0]}」的情感表現最為正向，'
+                      f'而就整體平均分數而言您在「{max_score_fields[0]}」表現得最好，您或許對於「{max_sentiment_Score_field[0]}」具有強大的興趣，'
+                      f'且您在「{max_score_fields[0]}」具有學習優勢。若您可以將這兩個科目結合做為未來的學習方向發展，或許會有不錯的成果!\n')
+            if len(max_score_method) == 1:
+                result = result + f"根據資料顯示，您最佳的學習方式為「{max_score_method[0]}」。或許未來在學習不同科目時，您可以選擇此種學習方式提升學習效果。"
+                return result
+            else:
+                inputmethod = ""
+                for i in max_score_fields:
+                    inputmethod += f'{i}、'
+                inputmethod = inputmethod[:len(inputmethod)]
+                result = result + f"根據資料顯示，您最佳的學習方式為「{inputmethod}」。或許未來在學習不同科目時，您可以選擇這些學習方式提升學習效果。"
+                return
+
+
 @app.route('/check_for_new_images', methods=['GET'])
 def check_for_new_images():
     image_files = ['graph1.png', 'graph2.png', 'graph3.png', 'graph4.png']
@@ -359,6 +444,12 @@ def check_for_new_images():
     return Response(response=json.dumps({'new_images': sorted_new_images}),
                     status=200,
                     mimetype='application/json')
+
+@app.route('/recommendation', methods=['POST'])
+def get_recommendation():
+    jsondata = request.get_json()  # 從前端接收 JSON 數據
+    recommendation = recom(jsondata)  # 調用你的文字建議函數
+    return jsonify({'recommendation': recommendation})
 
 
 if __name__ == '__main__':
