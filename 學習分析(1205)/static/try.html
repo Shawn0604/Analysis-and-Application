@@ -5,14 +5,19 @@
     <style>
         /* 样式用于可伸缩的空白对话框 */
         .resizable-dialog {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-            resize: both;
-            overflow: auto;
-            width: 300px;
-            height: 200px;
-        }
+    border: 2px solid #008cba; /* 更顯眼的邊框 */
+    padding: 20px; /* 更多內部空間 */
+    margin: 20px auto; /* 居中並提供外部空間 */
+    resize: both; /* 保持可伸縮性 */
+    overflow: auto; /* 保持自動溢出 */
+    width: 60%; /* 適度的寬度 */
+    height: auto; /* 高度自適應內容 */
+    background-color: white; /* 白色背景 */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* 添加陰影效果 */
+    border-radius: 10px; /* 圓角邊框 */
+    font-size: 16px; /* 適當的字體大小 */
+}
+
 
         body {
     font-family: 'Open Sans', sans-serif; /* 更新字體 */
@@ -31,17 +36,58 @@ button {
 button:hover {
     background-color: #005f73; /* 鼠標懸停時變色 */
 }
+
+#introduction {
+    background: url('path_to_your_image.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    display: flex; /* 啟用 Flexbox */
+    flex-direction: column; /* 子元素垂直排列 */
+    justify-content: center; /* 垂直居中 */
+    align-items: center; /* 水平居中 */
+    background-color: #008cba; /* 背景顏色 */
+    color: white; /* 文字顏色 */
+    padding: 100px; /* 內邊距 */
+    text-align: center; /* 文字置中 */
+    height: 1200px; /* 高度 */
+}
+
+.explore-button {
+    background-color: #90c4e2; /* 特定按鈕的背景顏色 */
+    /* 其他特定樣式 */
+}
+
+button:hover {
+    transform: scale(1.05); /* 按鈕放大效果 */
+    background-color: #005f73; /* 變色 */
+}
+
+
     </style>
 </head>
 <body>
-    <h1>Sentiment Analysis</h1>
+    <!-- 引導區塊 -->
+    <div id="introduction" style="background-color: #008cba; color: white; padding: 100px; text-align: center;">
+        <h1>歡迎來到情感分析系統</h1>
+        <p>這裡是一段詳細的說明文字，介紹您的網站和它的功能。</p>
+        <button class="explore-button" onclick="scrollToFeatures()">探索功能</button>
+
+    </div>
+
+    <!-- 原有的功能部分 -->
+    <div id="features">
+        <h1>Sentiment Analysis</h1>
+        <!-- 功能內容 -->
+    </div>
+    
+    <!-- 您的表單和其他元素 -->
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" id="fileInput" name="file">
         <button type="button" onclick="uploadFile()">上傳檔案並進行分析</button>
-        <button type="button" onclick="generateCharts()">生成分析圖表</button>
+        
         <button type="button" onclick="displayResults()">顯示學習歷程分析</button>
         <button type="button" onclick="displayResultsAndRecommendation()">分析與建議</button>
-    </form>
+        <button type="button" onclick="generateCharts()">生成分析圖表</button>
+</form>
 
     <div id="displayResults" class="resizable-dialog"></div>
     <div id="recommendationResults" class="resizable-dialog"></div>
@@ -66,6 +112,9 @@ button:hover {
     </div>
 
     <script>
+        function scrollToFeatures() {
+    document.getElementById("features").scrollIntoView({ behavior: 'smooth' });
+}
         document.addEventListener('DOMContentLoaded', function() {
             checkForMissingImages();
         });
@@ -231,17 +280,3 @@ button:hover {
     
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
