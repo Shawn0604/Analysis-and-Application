@@ -27,7 +27,7 @@
     <style>
         /* 样式用于可伸缩的空白对话框 */
         .resizable-dialog {
-    border: 2px solid #008cba; /* 更顯眼的邊框 */
+    border: 2px solid #f27909; /* 更顯眼的邊框 */
     padding: 20px; /* 更多內部空間 */
     margin: 20px auto; /* 居中並提供外部空間 */
     resize: both; /* 保持可伸縮性 */
@@ -47,7 +47,7 @@
 }
 
 button {
-    background-color: #008cba; /* 按鈕背景顏色 */
+    background-color: #e2710f; /* 按鈕背景顏色 */
     color: white; /* 按鈕文字顏色 */
     padding: 10px 15px; /* 按鈕內邊距 */
     border: none;
@@ -164,7 +164,7 @@ https://www.tooplate.com/view/2127-little-fashion
 
                                     <p class="lead text-white mt-lg-3 mb-lg-5">在現代教育中，學生們經常面臨學業壓力和成績挑戰。Learning Analysis的目標是幫助學生更深入地了解自己的學習方式，提供個性化的學習建議，從而提升他們的學習效果</p>
 
-                                    <a href="about.html" class="btn custom-btn">Learn more about us</a>
+                                    <!-- <a href="about.html" class="btn custom-btn">Learn more about us</a> -->
                                 </div>
                             </div>
                         </div>
@@ -180,9 +180,9 @@ https://www.tooplate.com/view/2127-little-fashion
                                 <div class="col-lg-6 col-10">
                                     <h1 class="slick-title">認知學生學習習慣</h1>
 
-                                    <p class="lead text-white mt-lg-3 mb-lg-5">Please share this Little Fashion template to your friends. Thank you for supporting us.</p>
+                                    <p class="lead text-white mt-lg-3 mb-lg-5">提供個性化的學習分析，協助學生發現自身優勢和改進的空間，以達到更有效的學習</p>
 
-                                    <a href="product.html" class="btn custom-btn">Explore products</a>
+                                    <!-- <a href="product.html" class="btn custom-btn">Explore products</a> -->
                                 </div>
                             </div>
                         </div>
@@ -198,9 +198,9 @@ https://www.tooplate.com/view/2127-little-fashion
                                 <div class="col-lg-6 col-10">
                                     <h1 class="slick-title">幫助老師快速了解學生的狀況</h1>
 
-                                    <p class="lead text-white mt-lg-3 mb-lg-5">Tooplate is one of the best HTML CSS template websites for everyone.</p>
+                                    <p class="lead text-white mt-lg-3 mb-lg-5">協助老師更迅速、有針對性地識別學生需求，以提供更有效的教學支援和個別指導</p>
 
-                                    <a href="contact.html" class="btn custom-btn">Work with us</a>
+                                    <!-- <a href="contact.html" class="btn custom-btn">Work with us</a> -->
                                 </div>
                             </div>
                         </div>
@@ -465,33 +465,36 @@ https://www.tooplate.com/view/2127-little-fashion
     </body>
 
      <!-- 引導區塊 -->
-     <div id="introduction" style="background-color: #e7713f; color: white; padding: 100px; text-align: center;">
+     <!-- <div id="introduction" style="background-color: #e7713f; color: white; padding: 100px; text-align: center;">
         <h1>歡迎來到情感分析系統</h1>
         <p>這裡是一段詳細的說明文字，介紹您的網站和它的功能。</p>
         <button class="explore-button" onclick="scrollToFeatures()">探索功能</button>
 
-    </div>
+    </div> -->
 
     <!-- 原有的功能部分 -->
-    <div id="features">
+    <!-- <div id="features">
         <h1>Learning Analysis</h1>
-        <!-- 功能內容 -->
-    </div>
+        <功能內容 -->
+    <!-- </div> --> 
     
     <!-- 您的表單和其他元素 -->
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="fileInput" name="file">
-        <button type="button" onclick="uploadFile()">上傳檔案並進行分析</button>
-        
-        <button type="button" onclick="displayResults()">顯示學習歷程分析</button>
-        <button type="button" onclick="displayResultsAndRecommendation()">分析與建議</button>
-        <button type="button" onclick="generateCharts()">生成分析圖表</button>
-</form>
-
-    <div id="displayResults" class="resizable-dialog"></div>
-    <div id="recommendationResults" class="resizable-dialog"></div>
-
-    <div id="sentimentChart">
+    <div id="uploadFormContainer" class="container mt-5 text-center">
+        <form id="uploadForm" enctype="multipart/form-data" class="d-inline-block">
+            <input type="file" id="fileInput" name="file" class="form-control mb-2">
+            <button type="button" onclick="uploadFile()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">上傳檔案並進行分析</button>
+            <button type="button" onclick="displayResults()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">顯示學習歷程分析</button>
+            <button type="button" onclick="displayResultsAndRecommendation()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">分析與建議</button>
+            <button type="button" onclick="generateCharts()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">生成分析圖表</button>
+        </form>
+    </div>
+    
+    
+    
+    <div id="displayResults" class="container mt-5 resizable-dialog text-center"></div>
+    <div id="recommendationResults" class="container mt-5 resizable-dialog text-center"></div>
+    
+    <div id="sentimentChart" class="container mt-5 text-center">
         <!-- 图表1 -->
         {% if url_for('static', filename='graph1.png') %}
             <img id="graph1" src="{{ url_for('static', filename='graph1.png') }}" alt="Graph 1">
@@ -509,6 +512,7 @@ https://www.tooplate.com/view/2127-little-fashion
             <img id="graph4" src="{{ url_for('static', filename='graph4.png') }}" alt="Graph 4">
         {% endif %}
     </div>
+    
 
     <script>
         function scrollToFeatures() {
