@@ -11,6 +11,19 @@ from azure.ai.textanalytics import RecognizeCustomEntitiesAction
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib as mpl
+import operator
+import pandas as pd
+import numpy as np
+import nltk
+from nltk.tokenize import word_tokenize
+import re
+import jieba
+from sklearn.feature_extraction.text import CountVectorizer
+from scipy.sparse import coo_matrix
+import networkx as nx
+import matplotlib.pyplot as plt
+from flask import send_file
+
 mpl.use('Agg')
 
 app = Flask(__name__, static_url_path='/static')
@@ -442,6 +455,120 @@ def recom(jsondata):
                 return
 
 
+
+
+def train(json_file_path, chosen_category):
+
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    import seaborn as sns
+
+    # JSON data
+    df = pd.read_json(json_file_path)
+
+    raw = df
+
+    # 根據 chosen_category 過濾數據
+    if chosen_category:
+        filtered_data = raw[raw['field'] == chosen_category]
+    else:
+        filtered_data = raw
+
+    # Tokenize the "review" text
+    tokenized_documents_R1 = []
+    for document in filtered_data['review']:
+        tokens = nltk.word_tokenize(document)
+        tokenized_documents_R1.append(" ".join(tokens))
+
+    # Use English stopwords
+    from nltk.corpus import stopwords
+    english_stopwords = set(stopwords.words('english'))
+
+    # Filter out English stopwords
+    tokenized_documents_R1 = [
+        " ".join([word for word in doc.split() if word.lower() not in english_stopwords])
+        for doc in tokenized_documents_R1
+    ]
+
+    # Create a co-occurrence matrix
+    vectorizer = CountVectorizer()
+    dtm_R1 = vectorizer.fit_transform(tokenized_documents_R1)
+    dtm_R1_Words = vectorizer.get_feature_names_out()
+    X = dtm_R1.toarray()
+    df_tdm_R1 = pd.DataFrame(X, columns=list(dtm_R1_Words))
+
+    # Calculate the co-occurrence matrix
+    X_cooc = df_tdm_R1.T.dot(df_tdm_R1)
+    X_coo = X_cooc.stack().reset_index()
+    X_coo.columns = ['word1', 'word2', 'weight']
+    X_coo_df = X_coo[X_coo['weight'] > 0].reset_index(drop=True)
+
+    arr = X_coo_df['weight']
+    median = 3
+
+    df_part = X_coo_df.loc[arr >= median]
+    df_part = df_part.reset_index(drop=True)
+
+    # Sort co-occurrence relationships
+    df_part = df_part.sort_values(by='weight', ascending=False)
+
+    # Select the top N co-occurrence relationships
+    N = 20
+    df_part = df_part.head(N)
+
+    # Build the graph
+    edges = [(row['word1'], row['word2']) for _, row in df_part.iterrows()]
+    weights = list(df_part['weight'])
+
+    G = nx.Graph()
+
+    for edge in edges:
+        G.add_node(edge[0])
+        G.add_node(edge[1])
+        G.add_edge(edge[0], edge[1])
+
+    # Plot the graph
+    fig = plt.figure(figsize=(20, 20))
+    pos = nx.kamada_kawai_layout(G)
+
+    node_size = 2000
+    node_color = 'skyblue'
+    edge_color = 'gray'
+    font_size = 14
+
+    nx.draw_networkx_nodes(G, pos, node_size=node_size, node_color=node_color, alpha=0.8)
+    nx.draw_networkx_edges(G, pos, edge_color=edge_color, alpha=0.5, width=2)
+    nx.draw_networkx_labels(G, pos, font_size=font_size, font_family='SimSun')
+
+    plt.axis('off')
+    # plt.show()
+    plt.savefig('static/graph5.png')
+
+
+
+
+# @app.route('/generate_migration_map', methods=['POST'])
+# def generate_migration_map():
+#     json_data = request.json
+#     train(json_data)  # 將解析出的 JSON 數據傳遞給 train 函數
+#     return jsonify({"message": "Map generation successful"})
+@app.route('/generate_migration_map', methods=['POST'])
+def generate_migration_map():
+    data = request.get_json()
+    chosen_category = data.get('chosen_category')
+    
+     # 確認收到分類
+    if not chosen_category:
+        return jsonify({"error": "No category chosen"}), 400
+
+    # 調用 train 函數生成遷徙圖
+    train('result.json', chosen_category)
+
+    return jsonify({"message": "Map generated successfully"})
+
+
+
+
 @app.route('/check_for_new_images', methods=['GET'])
 def check_for_new_images():
     image_files = ['graph1.png', 'graph2.png', 'graph3.png', 'graph4.png']
@@ -453,6 +580,17 @@ def check_for_new_images():
     return Response(response=json.dumps({'new_images': sorted_new_images}),
                     status=200,
                     mimetype='application/json')
+
+@app.route('/get_graph5', methods=['GET'])
+def get_graph5():
+    image_path = 'static/graph5.png'
+    if os.path.exists(image_path):
+        return jsonify({'graph5': image_path})
+    else:
+        return jsonify({'graph5': None}), 404
+
+
+
 
 @app.route('/recommendation', methods=['POST'])
 def get_recommendation():
