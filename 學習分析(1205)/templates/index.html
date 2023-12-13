@@ -502,23 +502,20 @@ https://www.tooplate.com/view/2127-little-fashion
         <label for="category-select" style="margin-right: 10px;">選擇分類：</label>
         <select name="categories" id="category-select">
             <option value="">--請選擇一個選項--</option>
-            <option value="language">語文</option>
-            <option value="math">數理</option>
-            <option value="art">藝術</option>
-            <option value="social">社會</option>
-            <option value="sports">體育</option>
+            <option value="語文">語文</option>
+            <option value="數理">數理</option>
+            <option value="藝術">藝術</option>
+            <option value="社會">社會</option>
+            <option value="體育">體育</option>
         </select>
-        <button type="button" onclick="generateMigrationChart()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">生成遷徙圖</button>
+        <button type="button" onclick="generateMigrationChart()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">確認分類</button>
+        <button type="button" onclick="generate()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">生成遷徙圖</button>
     </div>
     
     
 
-    
-    
-    
     <div id="displayResults" class="container mt-5 resizable-dialog text-center"></div>
     <div id="recommendationResults" class="container mt-5 resizable-dialog text-center"></div>
-    
     <div id="sentimentChart" class="container mt-5 text-center">
         <!-- 图表1 -->
         {% if url_for('static', filename='graph1.png') %}
@@ -537,10 +534,27 @@ https://www.tooplate.com/view/2127-little-fashion
             <img id="graph4" src="{{ url_for('static', filename='graph4.png') }}" alt="Graph 4">
         {% endif %}
         <!-- 图表5 -->
+        <!-- {% if url_for('static', filename='graph5.png') %}
+            <img id="graph5" src="{{ url_for('static', filename='graph5.png') }}" alt="Graph 5" style="width: 1000px">
+        {% endif %} -->
+    </div>
+
+    <div id="migrationChart" class="container mt-5 text-center">
         {% if url_for('static', filename='graph5.png') %}
             <img id="graph5" src="{{ url_for('static', filename='graph5.png') }}" alt="Graph 5" style="width: 1000px">
+        {% else %}
+            <style>
+                #graph5 {
+                    display: none;
+                }
+            </style>
         {% endif %}
     </div>
+    
+    
+    
+
+    
     
 
     <script>
@@ -550,6 +564,37 @@ https://www.tooplate.com/view/2127-little-fashion
         document.addEventListener('DOMContentLoaded', function() {
             checkForMissingImages();
         });
+
+        function generateMigrationChart() {
+    // 获取选择的分类值
+    const categorySelect = document.getElementById('category-select');
+    const chosenCategory = categorySelect.value;
+
+    // 发送请求到后端
+    fetch('/generate_migration_map', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ chosen_category: chosenCategory }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('遷徙圖生成成功');
+
+        // 更新图表的 src 属性，添加一个随机参数
+        const migrationChartImg = document.getElementById('graph5');
+        const randomParam = new Date().getTime(); // 添加一个随机参数，避免缓存
+        migrationChartImg.src = migrationChartImg.src.split('?')[0] + '?' + randomParam;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('發生錯誤，請稍後再試。');
+    });
+}
+
+
+
 
         function uploadFile() {
             var input = document.getElementById('fileInput');
@@ -593,6 +638,7 @@ https://www.tooplate.com/view/2127-little-fashion
             checkAndHideImage('graph2');
             checkAndHideImage('graph3');
             checkAndHideImage('graph4');
+            checkAndHideImage('graph5');
 
             // If all images are loaded, stop checking for new images
             if (areAllImagesLoaded()) {
@@ -601,19 +647,36 @@ https://www.tooplate.com/view/2127-little-fashion
         }
 
         function checkAndHideImage(imageId) {
-            var imageElement = document.getElementById(imageId);
-            if (imageElement && (!imageElement.complete || typeof imageElement.naturalWidth === "undefined" || imageElement.naturalWidth === 0)) {
-                imageElement.style.display = 'none';
+    var imageElement = document.getElementById(imageId);
+    if (imageElement) {
+        if (!imageElement.complete || typeof imageElement.naturalWidth === "undefined" || imageElement.naturalWidth === 0) {
+            // 如果圖片不存在，直接將其隱藏
+            imageElement.style.display = 'none';
+
+            // 如果是 graph5，單獨處理
+            if (imageId === 'graph5') {
+                var migrationChartDiv = document.getElementById('migrationChart');
+                if (migrationChartDiv) {
+                    migrationChartDiv.style.display = 'none';
+                }
             }
+        } else {
+            // 如果圖片存在，顯示它
+            imageElement.style.display = 'block';
         }
+    }
+}
+
 
         function areAllImagesLoaded() {
             var graph1 = document.getElementById('graph1');
             var graph2 = document.getElementById('graph2');
             var graph3 = document.getElementById('graph3');
             var graph4 = document.getElementById('graph4');
+            var graph5 = document.getElementById('graph5');
+            
 
-            return graph1.complete && graph2.complete && graph3.complete && graph4.complete;
+            return graph1.complete && graph2.complete && graph3.complete && graph4.complete&& graph5.complete;
         }
 
         function updateImages(newImages) {
@@ -640,7 +703,7 @@ https://www.tooplate.com/view/2127-little-fashion
             }
         }
 
-        function generateMigrationChart() {
+        function generate(){
     fetch('/get_graph5', { method: 'GET' })
         .then(response => response.json())
         .then(data => {

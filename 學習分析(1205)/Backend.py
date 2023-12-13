@@ -24,6 +24,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from flask import send_file
 
+
 mpl.use('Agg')
 
 app = Flask(__name__, static_url_path='/static')
@@ -456,23 +457,57 @@ def recom(jsondata):
 
 
 
+import os
+import nltk
+import networkx as nx
+import matplotlib.pyplot as plt
+import pandas as pd
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CountVectorizer
 
-def train(json_file_path, chosen_category):
+nltk.download('punkt')
+nltk.download('stopwords')
+
+def train(chosen_category):
 
     import matplotlib.pyplot as plt
     import pandas as pd
     import seaborn as sns
+    import operator
+    import pandas as pd
+    import numpy as np
+    import nltk
+    from nltk.tokenize import word_tokenize
+    import re
+    import jieba
+    from sklearn.feature_extraction.text import CountVectorizer
+    from scipy.sparse import coo_matrix
+    import networkx as nx
+    import matplotlib.pyplot as plt
 
+    nltk.download('punkt')
+    nltk.download('omw-1.4')
+    nltk.download('stopwords')
+
+
+
+    filename = 'C:/Users/shawn/3D Objects/shawn064/shawn0604/學習分析(1205)/result.json'
+    raw = pd.read_json(filename, encoding='utf-8')
     # JSON data
-    df = pd.read_json(json_file_path)
+    # df = pd.read_json(json_file_path)
 
-    raw = df
+    # raw = df
 
     # 根據 chosen_category 過濾數據
-    if chosen_category:
-        filtered_data = raw[raw['field'] == chosen_category]
-    else:
-        filtered_data = raw
+    field_value = chosen_category
+
+# Filter data based on the user input
+    filtered_data = raw[raw['field'] == field_value]
+
+    # if chosen_category:
+    #     filtered_data = raw[raw['field'] == chosen_category]
+    # else:
+    #     filtered_data = raw
 
     # Tokenize the "review" text
     tokenized_documents_R1 = []
@@ -482,11 +517,11 @@ def train(json_file_path, chosen_category):
 
     # Use English stopwords
     from nltk.corpus import stopwords
-    english_stopwords = set(stopwords.words('english'))
+    chinese_stopwords = set(stopwords.words('chinese'))
 
-    # Filter out English stopwords
+# 過濾停用詞
     tokenized_documents_R1 = [
-        " ".join([word for word in doc.split() if word.lower() not in english_stopwords])
+        " ".join([word for word in jieba.cut(doc) if word.lower() not in chinese_stopwords])
         for doc in tokenized_documents_R1
     ]
 
@@ -544,6 +579,8 @@ def train(json_file_path, chosen_category):
     # plt.show()
     plt.savefig('static/graph5.png')
 
+# train('藝術')
+
 
 
 
@@ -554,17 +591,30 @@ def train(json_file_path, chosen_category):
 #     return jsonify({"message": "Map generation successful"})
 @app.route('/generate_migration_map', methods=['POST'])
 def generate_migration_map():
-    data = request.get_json()
-    chosen_category = data.get('chosen_category')
+    try:
+        data = request.json
+        chosen_category = data['chosen_category']
+
+        print(f"所選類別：{chosen_category}")
+
+        # 在此載入或定義您的數據
+        raw = pd.read_json('result.json', encoding='utf-8')
+
+        print(f"原始數據：{raw}")
+
+        # 呼叫 train 函數
+        train(chosen_category)
+
+        return jsonify({"message": "地圖生成成功"})
+    except Exception as e:
+        print(f"錯誤：{e}")
+        return jsonify({"error": str(e)}), 500
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+
     
-     # 確認收到分類
-    if not chosen_category:
-        return jsonify({"error": "No category chosen"}), 400
-
-    # 調用 train 函數生成遷徙圖
-    train('result.json', chosen_category)
-
-    return jsonify({"message": "Map generated successfully"})
 
 
 
