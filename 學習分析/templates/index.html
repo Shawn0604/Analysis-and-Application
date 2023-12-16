@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Learning Analysis</title>
+
+        <!-- CSS FILES -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+
+        <link href="static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/css/bootstrap-icons.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="static/css/slick.css"/>
+
+        <link href="static/css/tooplate-little-fashion.css" rel="stylesheet">
+
+        <title>Learning Analysis</title>
+    <style>
+        /* 样式用于可伸缩的空白对话框 */
+        .resizable-dialog {
+    border: 2px solid #f27909;
+    padding: 20px;
+    margin: 20px auto;
+    overflow: auto;
+    width: 800px; /* 你想要的固定寬度 */
+    height: 300px; /* 你想要的固定高度 */
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+
+
+        body {
+    font-family: 'Open Sans', sans-serif; /* 更新字體 */
+    background-color: #f4f4f4; /* 更新背景顏色 */
+}
+
+button {
+    background-color: #e2710f; /* 按鈕背景顏色 */
+    color: white; /* 按鈕文字顏色 */
+    padding: 10px 15px; /* 按鈕內邊距 */
+    border: none;
+    border-radius: 5px; /* 圓角邊框 */
+    cursor: pointer; /* 鼠標樣式 */
+}
+
+/* 調整下拉選單的樣式 */
+#category-select {
+        font-family: 'Roboto', sans-serif;
+        padding: 8px; /* 調整內間距 */
+        border: 1px solid #ccc; /* 加上邊框 */
+        border-radius: 5px; /* 圓角邊框 */
+    }
+button:hover {
+    background-color: #E65100; /* 鼠標懸停時變色 */
+}
+
+.slick-title {
+        white-space: nowrap; /* 不換行 */
+        margin: 0; /* 清除標題的邊距 */
+        padding: 0; /* 清除標題的填充 */
+    }
+
+
+/* .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    } */
+
+    /* 可以選擇性地設定圖片的最大寬度 */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block; /* 讓圖片成為區塊元素 */
+        margin: 0 auto; /* 將左右 margin 設為 auto，實現水平居中 */
+    }
+/* #introduction {
+    background: url('path_to_your_image.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #008cba; 
+    color: white; 
+    padding: 100px; 
+    text-align: center; 
+    height: 1200px; 
+} */
+
+.explore-button {
+    background-color: #EF6C00; /* 特定按鈕的背景顏色 */
+    /* 其他特定樣式 */
+}
+
+button:hover {
+    transform: scale(1.05); /* 按鈕放大效果 */
+    background-color: #FB8C00; /* 變色 */
+}
+
+
+    </style>
+<!--
+
+Tooplate 2127 Little Fashion
+
+https://www.tooplate.com/view/2127-little-fashion
+
+-->
+    </head>
+    
+    <body>
+
+        <section class="preloader">
+            <div class="spinner">
+                <span class="sk-inner-circle"></span>
+            </div>
+        </section>
+    
+        <main>
+
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="index.html">
+                        <strong><span>Learning </span> Analysis</strong>
+                    </a>
+
+                    <div class="d-lg-none">
+                        <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
+
+                        <a href="product-detail.html" class="bi-bag custom-icon"></a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="index.html">主頁</a>
+                            </li>
+
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="about.html">Story</a>
+                            </li> -->
+
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="products.html">Products</a>
+                            </li> -->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="faq.html">相關問題</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">聯絡我們</a>
+                            </li>
+                        </ul>
+
+                        <div class="d-none d-lg-block">
+                            <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
+
+                            <a href="product-detail.html" class="bi-bag custom-icon"></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <section class="slick-slideshow">   
+                <div class="slick-custom">
+                    <img src="https://images.pexels.com/photos/5676744/pexels-photo-5676744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="img-fluid" alt="">
+
+                    <div class="slick-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-10">
+                                    <h1 class="slick-title">Learning Analysis</h1>
+
+                                    <p class="lead text-white mt-lg-3 mb-lg-5">在現代教育中，學生們經常面臨學業壓力和成績挑戰。Learning Analysis的目標是幫助學生更深入地了解自己的學習方式，提供個性化的學習建議，從而提升他們的學習效果</p>
+
+                                    <!-- <a href="about.html" class="btn custom-btn">Learn more about us</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slick-custom">
+                    <img src="https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 870w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1170w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1470w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1740w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1770w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2070w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2340w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2370w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2670w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2940w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2970w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3270w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3540w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3570w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3870w, https://images.unsplash.com/photo-1565350831386-8c52421af9fa?q=80&w=4000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4000w" class="img-fluid" alt="">
+
+                    <div class="slick-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-10">
+                                    <h1 class="slick-title">認知學生學習習慣</h1>
+
+                                    <p class="lead text-white mt-lg-3 mb-lg-5">提供個性化的學習分析，協助學生發現自身優勢和改進的空間，以達到更有效的學習</p>
+
+                                    <!-- <a href="product.html" class="btn custom-btn">Explore products</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slick-custom">
+                    <img src="https://images.pexels.com/photos/8424580/pexels-photo-8424580.jpeg" class="img-fluid" alt="">
+
+                    <div class="slick-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-10">
+                                    <h1 class="slick-title">幫助老師快速了解學生的狀況</h1>
+
+                                    <p class="lead text-white mt-lg-3 mb-lg-5">協助老師更迅速、有針對性地識別學生需求，以提供更有效的教學支援和個別指導</p>
+
+                                    <!-- <a href="contact.html" class="btn custom-btn">Work with us</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="about section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12 text-center">
+                            <h2 class="mb-5">Get started with <span>Learning</span> Analysis</h2>
+                        </div>
+
+                        <div class="col-lg-2 col-12 mt-auto mb-auto">
+                            <ul class="nav nav-pills mb-5 mx-auto justify-content-center align-items-center" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">學習歷程分析</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-skill-tab" data-bs-toggle="pill" data-bs-target="#pills-a" type="button" role="tab" aria-controls="pills-skill" aria-selected="false">文字建議</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-skill-tab" data-bs-toggle="pill" data-bs-target="#pills-b" type="button" role="tab" aria-controls="pills-skill" aria-selected="false">分析圖表</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-skill-tab" data-bs-toggle="pill" data-bs-target="#pills-c" type="button" role="tab" aria-controls="pills-skill" aria-selected="false">學習遷徙圖</button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-youtube-tab" data-bs-toggle="pill" data-bs-target="#pills-d" type="button" role="tab" aria-controls="pills-youtube" aria-selected="true">實際操作</button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-10 col-12">
+                            <div class="tab-content mt-2" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                    <div class="row">
+                                        <div class="col-lg-7 col-12">
+                                            <img src="https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1032w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1332w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1632w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1932w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2064w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2232w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2532w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2664w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2832w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3132w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3264w, https://plus.unsplash.com/premium_photo-1661508333411-0246522ee003?q=80&w=3293&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3293w" class="img-fluid" alt="">
+                                        </div>
+
+                                        <div class="col-lg-5 col-12">
+                                            <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                                <h4 class="mb-3">學習歷程分析 </h4>
+
+                                                <!-- <p>Little Fashion templates comes with <a href="sign-in.html">sign in</a> / <a href="sign-up.html">sign up</a> pages, product listing / product detail, about, FAQs, and contact page.</p> -->
+
+                                                <p>通過分析，呈現出學生的學習歷程。包括學習分數、情緒分析、學習方式、等方面的數據。學生可以藉此了解自己的學習習慣，發現潛在的問題，以及找到提升的方向</p>
+
+                                                <!-- <div class="mt-2 mt-lg-auto">
+                                                    <a href="about.html" class="custom-link mb-2">
+                                                        Learn more about us
+                                                        <i class="bi-arrow-right ms-2"></i>
+                                                    </a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="pills-d" role="tabpanel" aria-labelledby="pills-youtube-tab">
+
+                                    <div class="row">
+                                        <div class="col-lg-7 col-12">
+                                            <div class="ratio ratio-16x9">
+                                                <iframe src="https://www.youtube-nocookie.com/embed/f_7JqPDWhfw?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-5 col-12">
+                                            <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                                <h4 class="mb-3">實際操作</h4>
+
+                                                <p>基於學習歷程分析的結果，提供學生個性化的文字建議，包括時間管理技巧、科目選擇建議、學習方法改進等。這樣的建議可以幫助學生更有效地利用他們的學習時間，提高學習效果。</p>
+
+                                                <!-- <p>Custom work is branding, web design, UI/UX design</p> -->
+
+                                                <!-- <div class="mt-2 mt-lg-auto">
+                                                    <a href="contact.html" class="custom-link mb-2">
+                                                        Work with us
+                                                        <i class="bi-arrow-right ms-2"></i>
+                                                    </a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="pills-b" role="tabpanel" aria-labelledby="pills-skill-tab">
+                                    <div class="row">
+                                        <div class="col-lg-7 col-12">
+                                            <img src="https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 870w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1170w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1470w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1740w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1770w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2070w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2340w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2370w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2670w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2940w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2970w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3270w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3540w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3570w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3870w, https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=4000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4000w" class="img-fluid" alt="">
+                                        </div>
+
+                                        <div class="col-lg-5 col-12">
+                                            <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                                <h4 class="mb-3">分析圖表</h4>
+
+                                                <p>通過視覺化的方式呈現學習數據，藉由圖表顯示學生學習情況，長條圖顯示不同科目的表現等。這樣的圖表讓學生能夠更直觀地理解他們的學習狀況。</p>
+
+                                                <!-- <div class="skill-thumb mt-3">
+
+                                                    <strong>Branding</strong>
+                                                        <span class="float-end">90%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                                            </div>
+
+                                                    <strong>Design & Stragety</strong>
+                                                        <span class="float-end">70%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                                            </div>
+
+                                                    <strong>Online Platform</strong>
+                                                        <span class="float-end">80%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                                            </div>
+
+                                                </div>
+                                                
+                                                <div class="mt-2 mt-lg-auto">
+                                                    <a href="products.html" class="custom-link mb-2">
+                                                        Explore products
+                                                        <i class="bi-arrow-right ms-2"></i>
+                                                    </a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="pills-a" role="tabpanel" aria-labelledby="pills-skill-tab">
+                                    <div class="row">
+                                        <div class="col-lg-7 col-12">
+                                            <img src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 870w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1170w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1470w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1740w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 1770w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2070w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2340w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=2370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2370w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2670w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2940w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 2970w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3270w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3540w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3570w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 3870w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=4140&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4140w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=4170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4170w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=4470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4470w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=4740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4740w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=4770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 4770w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=5070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 5070w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=5340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 5340w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=5370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 5370w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=5670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 5670w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=5940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 5940w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=5970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 5970w, https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=6000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 6000w" class="img-fluid" alt="">
+                                        </div>
+
+                                        <div class="col-lg-5 col-12">
+                                            <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                                <h4 class="mb-3">文字建議</h4>
+
+                                                <p>即使您對圖表的解讀不熟悉，文字建議也能為您提供解釋和建議，使學習情況更加清晰可見。</p>
+
+                                                <!-- <div class="skill-thumb mt-3">
+
+                                                    <strong>Branding</strong>
+                                                        <span class="float-end">90%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                                            </div>
+
+                                                    <strong>Design & Stragety</strong>
+                                                        <span class="float-end">70%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                                            </div>
+
+                                                    <strong>Online Platform</strong>
+                                                        <span class="float-end">80%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                                            </div>
+
+                                                </div>
+                                                
+                                                <div class="mt-2 mt-lg-auto">
+                                                    <a href="products.html" class="custom-link mb-2">
+                                                        Explore products
+                                                        <i class="bi-arrow-right ms-2"></i>
+                                                    </a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="pills-c" role="tabpanel" aria-labelledby="pills-skill-tab">
+                                    <div class="row">
+                                        <div class="col-lg-7 col-12">
+                                            <img src="https://media.istockphoto.com/id/1360742895/photo/students-looking-at-their-teacher.jpg?s=612x612&w=0&k=20&c=As-cjyurbNJsxbb-Jp1Qmz8CvOW-tCmzD_EYNo_jQvg=" class="img-fluid" alt="">
+                                        </div>
+
+                                        <div class="col-lg-5 col-12">
+                                            <div class="d-flex flex-column h-100 ms-lg-4 mt-lg-0 mt-5">
+                                                <h4 class="mb-3">學習遷徙圖</h4>
+                                                <p>可以觀察點與點之間的連線，去理解相互的關係</p>
+                                                <p>通過學習遷徙圖，老師可以更有針對性地提供個別化的教學建議，了解學生的學習偏好和強項。同時，學生也可以通過這個工具更好地了解自己的學習路徑，有助於制定更有效的學習計劃。</p>
+
+                                                <!-- <div class="skill-thumb mt-3">
+
+                                                    <strong>Branding</strong>
+                                                        <span class="float-end">90%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
+                                                            </div>
+
+                                                    <strong>Design & Stragety</strong>
+                                                        <span class="float-end">70%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                                            </div>
+
+                                                    <strong>Online Platform</strong>
+                                                        <span class="float-end">80%</span>
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                                            </div>
+
+                                                </div>
+                                                
+                                                <div class="mt-2 mt-lg-auto">
+                                                    <a href="products.html" class="custom-link mb-2">
+                                                        Explore products
+                                                        <i class="bi-arrow-right ms-2"></i>
+                                                    </a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- <section class="front-product">
+                <div class="container-fluid p-0">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-6 col-12">
+                            <img src="static/images/retail-shop-owner-mask-social-distancing-shopping.jpg" class="img-fluid" alt="">
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <div class="px-5 py-5 py-lg-0">
+                                
+                                <h2 class="mb-4"><span>Retail</span> shop owners</h2>
+
+                                <p class="lead mb-4">Credits go to Unsplash and FreePik websites for images used in this Little Fashion by Tooplate.</p>
+
+                                <a href="products.html" class="custom-link">
+                                    Explore Products
+                                    <i class="bi-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section> -->
+
+            <!-- <section class="featured-product section-padding">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-12 text-center">
+                            <h2 class="mb-5">Featured Products</h2>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="product-detail.html">
+                                    <img src="static/images/product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert me-auto">New Arrival</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Tree pot</a>
+                                        </h5>
+
+                                        <p class="product-p">Original package design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto mt-auto mb-5">$25</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="product-detail.html">
+                                    <img src="static/images/product/jordan-nix-CkCUvwMXAac-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert">Low Price</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Fashion Set</a>
+                                        </h5>
+
+                                        <p class="product-p">Costume Package</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto mt-auto mb-5">$35</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12">
+                            <div class="product-thumb">
+                                <a href="product-detail.html">
+                                    <img src="static/images/product/nature-zen-3Dn1BZZv3m8-unsplash.jpeg" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Juice Drinks</a>
+                                        </h5>
+
+                                        <p class="product-p">Nature made another world</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto mt-auto mb-5">$45</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <a href="products.html" class="view-all">View All Products</a>
+                        </div>
+
+                    </div>
+                </div>
+            </section> -->
+
+        </main>
+
+        
+    </body>
+
+     <!-- 引導區塊 -->
+     <!-- <div id="introduction" style="background-color: #e7713f; color: white; padding: 100px; text-align: center;">
+        <h1>歡迎來到情感分析系統</h1>
+        <p>這裡是一段詳細的說明文字，介紹您的網站和它的功能。</p>
+        <button class="explore-button" onclick="scrollToFeatures()">探索功能</button>
+
+    </div> -->
+
+    <!-- 原有的功能部分 -->
+    <!-- <div id="features">
+        <h1>Learning Analysis</h1>
+        <功能內容 -->
+    <!-- </div> --> 
+    
+    <!-- 您的表單和其他元素 -->
+    <div id="uploadFormContainer" class="container mt-5 text-center">
+        <form id="uploadForm" enctype="multipart/form-data" class="d-inline-block">
+            <input type="file" id="fileInput" name="file" class="form-control mb-2">
+            <button type="button" onclick="uploadFile()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">上傳檔案並進行分析</button>
+            <button type="button" onclick="displayResults()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">了解分析結果</button>
+            <button type="button" onclick="generateCharts()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">生成分析圖表</button>
+            <button type="button" onclick="displayResultsAndRecommendation()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">了解學習建議</button>
+            <!-- <button type="button" onclick="generateMigrationChart()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">生成遷徙圖</button> -->
+
+        </form>
+    </div>
+    <div style="text-align: center;">
+        <label for="category-select" style="margin-right: 10px;">選擇分類：</label>
+        <select name="categories" id="category-select">
+            <option value="">--請選擇一個選項--</option>
+            <option value="語文">語文</option>
+            <option value="數理">數理</option>
+            <option value="藝術">藝術</option>
+            <option value="社會">社會</option>
+            <option value="體育">體育</option>
+        </select>
+        <button type="button" onclick="generateMigrationChart()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">確認分類</button>
+        <button type="button" onclick="generate()" class="btn" style="background-color: #EF6C00; color: white; margin-bottom: 10px;">生成遷徙圖</button>
+    </div>
+    
+    
+
+    <div id="displayResults" class="container mt-5 resizable-dialog text-center"></div>
+    <div id="recommendationResults" class="container mt-5 resizable-dialog text-center"></div>
+    <div id="sentimentChart" class="container mt-5 text-center">
+        <!-- 图表1 -->
+        {% if url_for('static', filename='graph1.png') %}
+            <img id="graph1" src="{{ url_for('static', filename='graph1.png') }}" alt="Graph 1">
+        {% endif %}
+        <!-- 图表2 -->
+        {% if url_for('static', filename='graph2.png') %}
+            <img id="graph2" src="{{ url_for('static', filename='graph2.png') }}" alt="Graph 2">
+        {% endif %}
+        <!-- 图表3 -->
+        {% if url_for('static', filename='graph3.png') %}
+            <img id="graph3" src="{{ url_for('static', filename='graph3.png') }}" alt="Graph 3">
+        {% endif %}
+        <!-- 图表4 -->
+        {% if url_for('static', filename='graph4.png') %}
+            <img id="graph4" src="{{ url_for('static', filename='graph4.png') }}" alt="Graph 4">
+        {% endif %}
+        <!-- 图表5 -->
+        <!-- {% if url_for('static', filename='graph5.png') %}
+            <img id="graph5" src="{{ url_for('static', filename='graph5.png') }}" alt="Graph 5" style="width: 1000px">
+        {% endif %} -->
+    </div>
+
+    <div id="migrationChart" class="container mt-5 text-center">
+        {% if url_for('static', filename='graph5.png') %}
+            <img id="graph5" src="{{ url_for('static', filename='graph5.png') }}" alt="Graph 5" style="width: 1000px">
+        {% endif %}
+    </div>
+    
+    
+    
+
+    
+    
+
+    <script>
+        function scrollToFeatures() {
+    document.getElementById("features").scrollIntoView({ behavior: 'smooth' });
+}
+        document.addEventListener('DOMContentLoaded', function() {
+            checkForMissingImages();
+        });
+
+        function generateMigrationChart() {
+    // 获取选择的分类值
+    const categorySelect = document.getElementById('category-select');
+    const chosenCategory = categorySelect.value;
+
+    // 发送请求到后端
+    fetch('/generate_migration_map', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ chosen_category: chosenCategory }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('遷徙圖生成成功');
+
+        // 更新图表的 src 属性，添加一个随机参数
+        const migrationChartImg = document.getElementById('graph5');
+        const randomParam = new Date().getTime(); // 添加一个随机参数，避免缓存
+        migrationChartImg.src = migrationChartImg.src.split('?')[0] + '?' + randomParam;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('發生錯誤，請稍後再試。');
+    });
+}
+
+
+
+
+        function uploadFile() {
+            var input = document.getElementById('fileInput');
+            var file = input.files[0];
+
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                window.result = data.result;
+                console.log(window.result);
+                if (data.success) {
+                    updateCharts();
+                    checkForMissingImages();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function generateCharts() {
+            fetch('/check_for_new_images', { method: 'GET' })
+                .then(response => response.json())
+                .then(data => {
+                    // data 中包含新的圖片信息，如果有的話
+                    if (data.new_images) {
+                        // 更新頁面上的圖片
+                        updateImages(data.new_images);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function checkForMissingImages() {
+            // Check if images are missing and hide them
+            checkAndHideImage('graph1');
+            checkAndHideImage('graph2');
+            checkAndHideImage('graph3');
+            checkAndHideImage('graph4');
+            checkAndHideImage('graph5');
+
+            // If all images are loaded, stop checking for new images
+            if (areAllImagesLoaded()) {
+                clearInterval(checkForNewImagesInterval);
+            }
+        }
+
+        function checkAndHideImage(imageId) {
+    var imageElement = document.getElementById(imageId);
+    if (imageElement) {
+        if (!imageElement.complete || typeof imageElement.naturalWidth === "undefined" || imageElement.naturalWidth === 0) {
+            // 如果圖片不存在，直接將其隱藏
+            imageElement.style.display = 'none';
+
+            // 如果是 graph5，單獨處理
+            if (imageId === 'graph5') {
+                var migrationChartDiv = document.getElementById('migrationChart');
+                if (migrationChartDiv) {
+                    migrationChartDiv.style.display = 'none';
+                }
+            }
+        } else {
+            // 如果圖片存在，顯示它
+            imageElement.style.display = 'block';
+        }
+    }
+}
+
+
+        function areAllImagesLoaded() {
+            var graph1 = document.getElementById('graph1');
+            var graph2 = document.getElementById('graph2');
+            var graph3 = document.getElementById('graph3');
+            var graph4 = document.getElementById('graph4');
+            var graph5 = document.getElementById('graph5');
+            
+
+            return graph1.complete && graph2.complete && graph3.complete && graph4.complete&& graph5.complete;
+        }
+
+        function updateImages(newImages) {
+            var sentimentChartDiv = document.getElementById('sentimentChart');
+            sentimentChartDiv.innerHTML = '';
+
+            newImages.forEach(function(image) {
+                var imgPath = "/static/" + image;
+                fetch(imgPath)
+                    .then(response => {
+                        if (response.ok) {
+                            var imgElement = document.createElement('img');
+                            imgElement.src = imgPath;
+                            imgElement.alt = "Graph";
+                            sentimentChartDiv.appendChild(imgElement);
+                        }
+                    })
+                    .catch(error => console.error('Error checking image:', error));
+            });
+
+            // If all images are loaded, stop checking for new images
+            if (areAllImagesLoaded()) {
+                clearInterval(checkForNewImagesInterval);
+            }
+        }
+
+        function generate(){
+    fetch('/get_graph5', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.graph5) {
+                // 更新或添加圖片到頁面
+                updateImage('migrationChart', data.graph5);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function updateImage(elementId, imagePath) {
+    var img = document.getElementById(elementId);
+    if (img) {
+        img.src = imagePath;
+    } else {
+        // 如果圖片元素不存在，則創建一個新的並添加到頁面上
+        img = document.createElement('img');
+        img.id = elementId;
+        img.src = imagePath;
+        document.body.appendChild(img);
+    }
+}
+
+        
+
+        function getRecommendation() {
+            var jsondata = JSON.stringify(window.result);
+
+            fetch('/recommendation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: jsondata,
+            })
+            .then(response => response.json())
+            .then(result => {
+                var recommendation = result.recommendation;
+                var recommendationDiv = document.getElementById('recommendationResults');
+                recommendationDiv.innerHTML = `<p><strong>Recommendation:</strong> ${recommendation}</p>`;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateCharts() {
+            // Remove the call to checkForNewImages
+        }
+
+        function displayResults3(results) {
+            var resultsDiv = document.getElementById('sentimentResults');
+            resultsDiv.innerHTML = '';
+
+            results.forEach(function(item) {
+                var resultItem = document.createElement('div');
+                resultItem.innerHTML = `
+                    <p><strong>Course:</strong> ${item.course}</p>
+                    <p><strong>Field:</strong> ${item.field}</p>
+                    <p><strong>Learning Method:</strong> ${item.learning_method}</p>
+                    <p><strong>Review:</strong> ${item.review}</p>
+                    <p><strong>Score:</strong> ${item.score}</p>
+                    <p><strong>Sentiment:</strong> ${item.sentiment}</p>
+                    <hr>
+                `;
+                resultsDiv.appendChild(resultItem);
+            });
+        }
+
+        function displayResults2(results) {
+            var resultsDiv = document.getElementById('displayResults');
+            resultsDiv.innerHTML = '';
+
+            results.forEach(function(item) {
+                var resultItem = document.createElement('div');
+                resultItem.innerHTML = `
+                    <p><strong>Course:</strong> ${item.course}</p>
+                    <p><strong>Field:</strong> ${item.field}</p>
+                    <p><strong>Learning Method:</strong> ${item.learning_method}</p>
+                    <p><strong>Review:</strong> ${item.review}</p>
+                    <p><strong>Score:</strong> ${item.score}</p>
+                    <p><strong>Sentiment:</strong> ${item.sentiment}</p>
+                    <hr>
+                `;
+                resultsDiv.appendChild(resultItem);
+            });
+        }
+
+        function displayResults() {
+            displayResults2(window.result);
+        }
+
+        function displayResultsAndRecommendation() {
+            getRecommendation();
+        }
+    </script>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-10 me-auto mb-4">
+                    <h4 class="text-white mb-3"><a href="index.html">Learning </a> Analysis</h4>
+                    <p class="copyright-text text-muted mt-lg-5 mb-4 mb-lg-0">2023 <strong>Learning Analysis</strong></p>
+                    <br>
+                    <p class="copyright-text">Designed by <a href="https://www.tooplate.com/" target="_blank">Shawn  Peggy  Karen</a></p>
+                </div>
+
+                <div class="col-lg-5 col-8">
+                    <h5 class="text-white mb-3">Sitemap</h5>
+
+                    <ul class="footer-menu d-flex flex-wrap">
+                        <li class="footer-menu-item"><a href="about.html" class="footer-menu-link">Story</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Products</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Privacy policy</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">FAQs</a></li>
+
+                        <li class="footer-menu-item"><a href="#" class="footer-menu-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-4">
+                    <h5 class="text-white mb-3">Social</h5>
+
+                    <ul class="social-icon">
+
+                        <li><a href="#" class="social-icon-link bi-youtube"></a></li>
+
+                        <li><a href="#" class="social-icon-link bi-whatsapp"></a></li>
+
+                        <li><a href="#" class="social-icon-link bi-instagram"></a></li>
+
+                        <li><a href="#" class="social-icon-link bi-skype"></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/Headroom.js"></script>
+    <script src="static/js/jQuery.headroom.js"></script>
+    <script src="static/js/slick.min.js"></script>
+    <script src="static/js/custom.js"></script>
+
+</html>
