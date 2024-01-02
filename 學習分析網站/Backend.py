@@ -38,14 +38,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Azure Text Analytics API 配置
-sentiment_endpoint = "https://nertraining.cognitiveservices.azure.com/text/analytics/v3.0/sentiment"
-sentiment_key = "b0d806bde46146c99a8909e0aa1e9757"
 
-learning_method_endpoint = "https://nerrrrr.cognitiveservices.azure.com/"
-learning_method_key = "930ae92c8d65431cbae23c981d3881f4"
-
-subject_endpoint = "https://nerrrrr.cognitiveservices.azure.com/"
-subject_key = "930ae92c8d65431cbae23c981d3881f4"
 
 
 
